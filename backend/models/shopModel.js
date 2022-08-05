@@ -1,15 +1,21 @@
 const mongoose = require("mongoose");
 
 const shopSchema = mongoose.Schema({
-  id: {
-    type: Number,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
     require: true,
-    unique: true,
+    ref: "User",
   },
-  text: {
+  name: {
     type: String,
-    require: [true, "Please enter in text"],
+    require: [true, "Please enter in Shop name"],
   },
+  customers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Shop", shopSchema);

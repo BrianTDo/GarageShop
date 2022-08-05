@@ -11,7 +11,8 @@ const app = express()
 
 const indexRouter = require("./routes/index")
 const shopRouter = require("./routes/shopRoutes")
-const loginRouter = require("./routes/login")
+const loginRouter = require("./routes/userRoutes")
+const customerRouter = require("./routes/customerRoutes")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -19,7 +20,8 @@ app.use(express.urlencoded({ extended: false }))
 //Routes
 app.use('/', indexRouter)
 app.use('/api/shops', shopRouter)
-app.use('/login', loginRouter)
+app.use('/api/users', loginRouter)
+app.use('/api/customer', customerRouter)
 app.use(errorHandler)
 
 app.listen(port, () => console.log(`Server started on port ${port}`))

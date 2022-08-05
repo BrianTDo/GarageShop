@@ -1,0 +1,40 @@
+const asyncHandler = require("express-async-handler");
+
+const Shop = require("../models/shopModel");
+const Customer = require("../models/customerModel")
+
+
+// @desc Get customers
+// @route GET /api/customers
+// @access Private
+const getCustomers = asyncHandler(async (req, res) => {
+    const customers = await Customer.find({shop: req.shop.id});
+  
+    res.status(200).json(customers);
+  });
+  
+
+// @desc Set customer
+// @route POST /api/customer
+// @access Private
+const setCustomer = asyncHandler(async (req, res) => {
+    if (!req.body.name || !req.body.phone || !req.body.time || !req.body.date) {
+      res.status(400);
+      throw new Error("Please fill out all fields");
+    }
+  
+    const customer = await Customer.create({
+      name: req.body.name,
+      phone: req.body.phone,
+      time: req.body.time, 
+      date: req.body.date,
+    });
+  
+    res.status(200).json(customer);
+  });
+
+
+module.exports = {
+    getCustomers,
+    setCustomer,
+}
