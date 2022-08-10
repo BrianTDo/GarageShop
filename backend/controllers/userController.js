@@ -14,7 +14,6 @@ const registerUser = asyncHandler(async (req, res) => {
   }
   // Check if user exits
   const userExists = await User.findOne({ email });
-
   if (userExists) {
     res.status(400);
     throw new Error("User already exists");
@@ -44,7 +43,6 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
-  res.json({ message: "Register User" });
 });
 
 // @desc Authenticate user
@@ -68,21 +66,13 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid credentials");
   }
-  res.json({ message: "Login User" });
 });
 
 // @desc Get user data
 // @route GET /api/users/me
 // @access Private
 const getMe = asyncHandler(async (req, res) => {
-  const {_id, name, email} = await User.findById(req.user.id)
-
-  res.status(200).json({
-    id: _id,
-    firstName,
-    lastName,
-    email,
-  })
+ res.status(200).json(req.user)
 });
 
 // Generate JWT

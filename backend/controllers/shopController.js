@@ -1,13 +1,13 @@
 const asyncHandler = require("express-async-handler");
 
 const Shop = require("../models/shopModel");
-const User = require("../models/userModel")
+const User = require("../models/userModel");
 
 // @desc Get shops
 // @route GET /api/shops
 // @access Private
 const getShops = asyncHandler(async (req, res) => {
-  const shops = await Shop.find({user: req.user.id});
+  const shops = await Shop.find({ user: req.user.id });
 
   res.status(200).json(shops);
 });
@@ -16,14 +16,28 @@ const getShops = asyncHandler(async (req, res) => {
 // @route POST /api/shops
 // @access Private
 const setShop = asyncHandler(async (req, res) => {
-  if (!req.body.name) {
+  if (
+    !req.body.name ||
+    !req.body.address ||
+    !req.body.city ||
+    !req.body.state ||
+    !req.body.zip ||
+    !req.body.phone
+  ) {
     res.status(400);
-    throw new Error("Please add a text field");
+    throw new Error("Please complete all text fields");
   }
+
 
   const shop = await Shop.create({
     name: req.body.name,
-    user: req.user.id
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip,
+    phone: req.body.phone,
+    active: req.body.active,
+    user: req.user.id,
   });
 
   res.status(200).json(shop);
@@ -40,18 +54,16 @@ const updateShop = asyncHandler(async (req, res) => {
     throw new Error("Shop not found");
   }
 
-  const user = await User.findById(req.user.id)
-
   // User check
-  if(!user){
-    res.status(401)
-    throw new Error('User not found')
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
   }
 
   // Check if logged in user is shop user
-  if(shop.user.toString() !== user.id){
-    res.status(401)
-    throw new Error('User not authorized')
+  if (shop.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
   }
 
   const updatedShop = await Shop.findByIdAndUpdate(req.params.id, req.body, {
@@ -72,18 +84,18 @@ const deleteShop = asyncHandler(async (req, res) => {
     throw new Error("Shop not found");
   }
 
-  const user = await User.findById(req.user.id)
+  const user = await User.findById(req.user.id);
 
   // User check
-  if(!user){
-    res.status(401)
-    throw new Error('User not found')
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
   }
 
   // Check if logged in user is shop user
-  if(shop.user.toString() !== user.id){
-    res.status(401)
-    throw new Error('User not authorized')
+  if (shop.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
   }
 
   await shop.remove();
