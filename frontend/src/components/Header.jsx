@@ -1,12 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
+
+// Material UI
 import {
   AppBar,
   Toolbar,
   Button,
   IconButton,
   ButtonGroup,
+  Typography,
 } from "@mui/material";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import LoginIcon from '@mui/icons-material/Login';
@@ -43,7 +46,8 @@ function Header() {
             sx={{ mr: 2}}
             
           >
-            <WarehouseIcon />
+            <WarehouseIcon sx={{mr: 2}}/>
+            <Typography variant="h6">GarageShop</Typography>
           </IconButton>
           {user ? (
             <Button variant="outlined" color="primary" href="/login" onClick={onLogout}>

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { register, reset } from "../features/auth/authSlice";
+
+// Material UI
 import Spinner from "../components/Spinner";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";

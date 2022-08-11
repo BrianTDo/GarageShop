@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createShop } from "../features/shops/shopSlice";
-import states from "./States";
+import { updateShop } from "../../features/shops/shopSlice";
+import states from "../States";
 
 // Material UI
 import {
@@ -18,7 +18,7 @@ import {
   MenuItem,
 } from "@mui/material";
 
-function ShopForm() {
+function UpdateForm({shop}) {
   const [FormData, setFormData] = useState({
     name: "",
     address: "",
@@ -60,7 +60,7 @@ function ShopForm() {
       active,
     };
 
-    dispatch(createShop(shopData));
+    dispatch(updateShop(shopData));
   };
 
   // Material UI
@@ -70,11 +70,11 @@ function ShopForm() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleOpen} size='large'>
-        Create Shop
+      <Button color="success" variant="contained" onClick={handleOpen} size='large'>
+        Edit
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Create</DialogTitle>
+        <DialogTitle>Edit</DialogTitle>
         <form onSubmit={onSubmit}>
           <DialogContent>
             <DialogContentText>
@@ -89,7 +89,7 @@ function ShopForm() {
                   label="Shop Name"
                   id="name"
                   name="name"
-                  value={name}
+                  value={shop.name}
                   placeholder="Enter your shop name"
                   onChange={onChange}
                 />
@@ -102,7 +102,7 @@ function ShopForm() {
                   label="Address"
                   id="address"
                   name="address"
-                  value={address}
+                  value={shop.address}
                   placeholder="Enter your shop address"
                   onChange={onChange}
                 />
@@ -115,7 +115,7 @@ function ShopForm() {
                   label="City"
                   id="city"
                   name="city"
-                  value={city}
+                  value={shop.city}
                   placeholder="Enter your shop city"
                   onChange={onChange}
                 />
@@ -130,7 +130,7 @@ function ShopForm() {
                   label="State"
                   id="state"
                   name="state"
-                  value={state}
+                  value={shop.state}
                   onChange={onChange}
                 >
                   {states.map((state) => (
@@ -148,7 +148,7 @@ function ShopForm() {
                   label="Zip Code"
                   id="zip"
                   name="zip"
-                  value={zip}
+                  value={shop.zip}
                   placeholder="Enter your shop zip code"
                   onChange={onChange}
                 />
@@ -161,7 +161,7 @@ function ShopForm() {
                   label="Phone"
                   id="phone"
                   name="phone"
-                  value={phone}
+                  value={shop.phone}
                   placeholder="Enter your phone number"
                   onChange={onChange}
                 />
@@ -173,7 +173,7 @@ function ShopForm() {
                     <Switch
                       id="active"
                       name="active"
-                      value={active}
+                      value={shop.active}
                       onChange={onCheck}
                       color="primary"
                     />
@@ -187,7 +187,7 @@ function ShopForm() {
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
             <Button onClick={handleClose} type="submit">
-              Create
+              Update
             </Button>
           </DialogActions>
         </form>
@@ -196,4 +196,4 @@ function ShopForm() {
   );
 }
 
-export default ShopForm;
+export default UpdateForm;

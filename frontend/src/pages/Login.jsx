@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../features/auth/authSlice";
+
+// Material UI
 import Spinner from "../components/Spinner";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -60,6 +62,7 @@ function Login() {
     dispatch(login(userData));
   };
 
+  // Material UI
   function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>

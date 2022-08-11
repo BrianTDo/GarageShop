@@ -8,11 +8,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Shop from "./pages/Shop"
 import {theme} from "./theme"
+import CssBaseline from "@mui/material/CssBaseline";
 
 function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <CssBaseline/>
         <Router>
             <Header />
             <Routes>

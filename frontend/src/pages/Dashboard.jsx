@@ -1,39 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import ShopForm from "../components/ShopForm";
 import ShopItem from "../components/ShopItem";
 import Spinner from "../components/Spinner";
 import { getShops, reset } from "../features/shops/shopSlice";
+import Sidebar from "../components/Sidebar";
 
+// Material UI
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Toolbar from "@mui/material/Toolbar";
-import Avatar from "@mui/material/Avatar";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/material/styles";
+import Container from "@mui/material/Container";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: theme.spacing(32),
-      height: theme.spacing(16),
-    },
-  },
-  offWhitePaper: {
-    backgroundColor: "offWhite",
-  },
-}));
+import { DashboardRoot } from "../components/DashboardRoot";
+import DashboardCard from "../components/cards/DashboardCard";
+import FormCard from "../components/cards/FormCard";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -57,77 +38,51 @@ function Dashboard() {
     return () => dispatch(reset);
   }, [user, navigate, isError, message, dispatch]);
 
-  // Material UI
-  const drawerWidth = 240;
-  const classes = useStyles();
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   if (isLoading) {
     return <Spinner />;
   }
   return (
     <>
-      <div className={classes.root}>
-        <Grid
-          container
-          columns
+      <DashboardRoot>
+        <Box
           sx={{
-            mx: 2,
-            my: 4,
+            display: "flex",
+            flex: "1 1 auto",
+            flexDirection: "column",
+            width: "100%",
           }}
         >
-          <Drawer
-            variant="permanent"
+          <Box
+            component="main"
             sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              [`& .MuiDrawer-paper`]: {
-                width: drawerWidth,
-                boxSizing: "border-box",
-              },
+              flexGrow: 1,
+              py: 8,
             }}
           >
-            <Toolbar />
-            <Box sx={{ overflow: "auto" }}>
-              <Divider />
-              <List></List>
-            </Box>
-          </Drawer>
-          <Box component="main" color="secondary">
-            <Paper className="offWhitePaper" elevation={6}>
-              <Box>
-                <Typography component="h3" variant="h3" color="primary">
-                  <DashboardIcon fontSize="large" /> Dashboard
-                </Typography>
-              </Box>
-            </Paper>
-            <Grid component="Box">
-              {shops.length > 0 ? (
-                <div className="shops">
-                  {shops.map((shop) => (
-                    <ShopItem key={shop._id} shop={shop} />
-                  ))}
-                </div>
-              ) : (
-                <>
-                  <Grid>
-                    <Typography
-                      component="h6"
-                      variant="h6"
-                      color="primary"
-                      sx={{
-                        my: 2,
-                      }}
-                    >
-                      Create a shop to get started
-                    </Typography>
-                    <ShopForm />
-                  </Grid>
-                </>
-              )}
-            </Grid>
+            <Container maxWidth>
+              <DashboardCard key={user._id} user={user} />
+            </Container>
+            {shops.length > 0 ? (
+              <div>
+                {shops.map((shop) => (
+                  <ShopItem key={shop._id} shop={shop} />
+                ))}
+              </div>
+            ) : (
+              <>
+                <Container
+                  sx={{ display: "flex", my: 10, justifyContent: "center" }}
+                >
+                  <FormCard />
+                </Container>
+              </>
+            )}
           </Box>
-        </Grid>
-      </div>
+        </Box>
+      </DashboardRoot>
+      <Sidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
     </>
   );
 }

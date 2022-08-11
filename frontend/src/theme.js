@@ -12,9 +12,19 @@ export const theme = createTheme({
             main: "#b2ebf2",
             dark: "#80deea"
         },
-        offWhite: {
-            main: "#ede7f6",
+        error: {
+            light: "#e57373",
+            main: "#ef5350",
+            dark: "#f44336"
         },
+        success: {
+            light: "#69f0ae",
+            main: "#00e676",
+            dark: "#00c853"
+        },
+        background:{
+            default: "#e8eaf6"
+        }
     },
     spacing: 8,
 })

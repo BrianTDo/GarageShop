@@ -66,6 +66,7 @@ const updateShop = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
 
+
   const updatedShop = await Shop.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });

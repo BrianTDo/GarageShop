@@ -133,6 +133,19 @@ export const shopSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(updateShop.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateShop.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.shops = state.shops.filter((shop) => shop._id !== action.payload.id);
+      })
+      .addCase(updateShop.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
