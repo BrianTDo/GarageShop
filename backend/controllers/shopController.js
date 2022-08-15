@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 
 const Shop = require("../models/shopModel");
 const User = require("../models/userModel");
+const Customer = require("../models/customerModel");
 
 // @desc Get shops
 // @route GET /api/shops
@@ -10,6 +11,15 @@ const getShops = asyncHandler(async (req, res) => {
   const shops = await Shop.find({ user: req.user.id });
 
   res.status(200).json(shops);
+});
+
+// @desc Get shop by id
+// @route GET /api/shops/:id
+// @access Private
+const getShopById = asyncHandler(async (req, res) => {
+  const shop = await Shop.findById(req.params.id);
+
+  res.status(200).json(shop);
 });
 
 // @desc Set shop
@@ -37,6 +47,7 @@ const setShop = asyncHandler(async (req, res) => {
     zip: req.body.zip,
     phone: req.body.phone,
     active: req.body.active,
+    description: req.body.description,
     user: req.user.id,
   });
 
@@ -99,6 +110,8 @@ const deleteShop = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
 
+  // Cascade delete customers
+  await Customer.deleteMany({shop: shop.id})
   await shop.remove();
 
   res.status(200).json({ id: req.params.id });
@@ -109,4 +122,5 @@ module.exports = {
   setShop,
   updateShop,
   deleteShop,
+  getShopById,
 };

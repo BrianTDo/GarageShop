@@ -20,16 +20,18 @@ import {
 
 function UpdateForm({shop}) {
   const [FormData, setFormData] = useState({
-    name: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-    phone: "",
-    active: false,
+    id: shop._id,
+    name: shop.name,
+    address: shop.address,
+    city: shop.city,
+    state: shop.state,
+    zip: shop.zip,
+    phone: shop.phone,
+    active: shop.active,
+    description: shop.description,
   });
 
-  const { name, address, city, state, zip, phone, active } = FormData;
+  const { id, name, address, city, state, zip, phone, active, description } = FormData;
 
   const dispatch = useDispatch();
 
@@ -51,6 +53,7 @@ function UpdateForm({shop}) {
     e.preventDefault();
 
     const shopData = {
+      id,
       name,
       address,
       city,
@@ -58,8 +61,8 @@ function UpdateForm({shop}) {
       zip,
       phone,
       active,
+      description,
     };
-
     dispatch(updateShop(shopData));
   };
 
@@ -78,7 +81,7 @@ function UpdateForm({shop}) {
         <form onSubmit={onSubmit}>
           <DialogContent>
             <DialogContentText>
-              Please complete all fields to get started on your shop!
+              Please complete all fields!
             </DialogContentText>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -89,7 +92,7 @@ function UpdateForm({shop}) {
                   label="Shop Name"
                   id="name"
                   name="name"
-                  value={shop.name}
+                  value={name}
                   placeholder="Enter your shop name"
                   onChange={onChange}
                 />
@@ -102,7 +105,7 @@ function UpdateForm({shop}) {
                   label="Address"
                   id="address"
                   name="address"
-                  value={shop.address}
+                  value={address}
                   placeholder="Enter your shop address"
                   onChange={onChange}
                 />
@@ -115,7 +118,7 @@ function UpdateForm({shop}) {
                   label="City"
                   id="city"
                   name="city"
-                  value={shop.city}
+                  value={city}
                   placeholder="Enter your shop city"
                   onChange={onChange}
                 />
@@ -130,7 +133,7 @@ function UpdateForm({shop}) {
                   label="State"
                   id="state"
                   name="state"
-                  value={shop.state}
+                  value={state}
                   onChange={onChange}
                 >
                   {states.map((state) => (
@@ -148,7 +151,7 @@ function UpdateForm({shop}) {
                   label="Zip Code"
                   id="zip"
                   name="zip"
-                  value={shop.zip}
+                  value={zip}
                   placeholder="Enter your shop zip code"
                   onChange={onChange}
                 />
@@ -161,7 +164,7 @@ function UpdateForm({shop}) {
                   label="Phone"
                   id="phone"
                   name="phone"
-                  value={shop.phone}
+                  value={phone}
                   placeholder="Enter your phone number"
                   onChange={onChange}
                 />
@@ -173,13 +176,29 @@ function UpdateForm({shop}) {
                     <Switch
                       id="active"
                       name="active"
-                      value={shop.active}
+                      value={active}
                       onChange={onCheck}
                       color="primary"
+                      defaultChecked={active}
                     />
                   }
                   label="Active"
                   labelPlacement="top"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  multiline
+                  rows={4}
+                  fullWidth
+                  margin="dense"
+                  type="text"
+                  label="Description"
+                  id="description"
+                  name="description"
+                  value={description}
+                  placeholder="Enter Shop Description"
+                  onChange={onChange}
                 />
               </Grid>
             </Grid>

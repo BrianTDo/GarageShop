@@ -6,6 +6,7 @@ export const DashboardRoot = styled("div")(({ theme }) => ({
   maxWidth: "100%",
   paddingTop: 0,
   [theme.breakpoints.up("lg")]: {
-    paddingLeft: 280,
+    paddingLeft: 140,
+    paddingRight: 140,
   },
 }));

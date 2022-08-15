@@ -28,6 +28,24 @@ export const getShops = createAsyncThunk(
   }
 );
 
+// Get shop by id
+export const getShopById = createAsyncThunk(
+  "shops/getShop",
+  async (id, thunkAPI) => {
+    try {
+      return await shopService.getShopById(id);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // Create shop
 export const createShop = createAsyncThunk(
   "shops/create",
@@ -50,10 +68,10 @@ export const createShop = createAsyncThunk(
 // Update shop
 export const updateShop = createAsyncThunk(
   "shops/update",
-  async (id, shopData, thunkAPI) => {
+  async (shopData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await shopService.updateShop(id, shopData, token);
+      return await shopService.updateShop(shopData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -127,7 +145,9 @@ export const shopSlice = createSlice({
       .addCase(deleteShop.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.shops = state.shops.filter((shop) => shop._id !== action.payload.id);
+        state.shops = state.shops.filter(
+          (shop) => shop._id !== action.payload.id
+        );
       })
       .addCase(deleteShop.rejected, (state, action) => {
         state.isLoading = false;
@@ -140,9 +160,25 @@ export const shopSlice = createSlice({
       .addCase(updateShop.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.shops = state.shops.filter((shop) => shop._id !== action.payload.id);
+        state.shops = state.shops.filter(
+          (shop) => shop._id === action.payload.id
+        );
+        state.shops.push(action.payload);
       })
       .addCase(updateShop.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getShopById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getShopById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.shops = action.payload;
+      })
+      .addCase(getShopById.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

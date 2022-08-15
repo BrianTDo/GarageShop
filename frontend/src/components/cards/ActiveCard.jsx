@@ -15,13 +15,23 @@ import Switch from "@mui/material/Switch";
 import { updateShop } from "../../features/shops/shopSlice";
 
 function ActiveCard({ shop }) {
-  const [value, setValue] = useState(false);
+  const [FormData, setFormData] = useState({
+    id: shop._id,
+    name: shop.name,
+    address: shop.address,
+    city: shop.city,
+    state: shop.state,
+    zip: shop.zip,
+    phone: shop.phone,
+    active: shop.active,
+    description: shop.description,
+  });
 
-  const { active } = FormData;
+  const { id, name, address, city, state, zip, phone, active, description } = FormData;
 
   const dispatch = useDispatch();
   const onCheck = (e) => {
-    setValue((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.checked,
     }));
@@ -31,14 +41,22 @@ function ActiveCard({ shop }) {
     e.preventDefault();
 
     const shopData = {
+      id,
+      name,
+      address,
+      city,
+      state,
+      zip,
+      phone,
       active,
+      description,
     };
 
     dispatch(updateShop(shopData));
   };
 
   return (
-    <Card sx={{ height: "100%" }} {...shop}>
+    <Card sx={{ height: "100%" }}>
       <CardContent>
         <form onSubmit={onSubmit}>
           <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
@@ -54,7 +72,7 @@ function ActiveCard({ shop }) {
                   value={active}
                   onChange={onCheck}
                   color="success"
-                  defaultChecked={shop.active}
+                  defaultChecked={active}
                 ></Switch>
               </Typography>
             </Grid>

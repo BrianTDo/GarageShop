@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-
 import {
   Avatar,
   Box,
@@ -7,7 +5,6 @@ import {
   CardContent,
   Grid,
   Typography,
-  Button,
 } from "@mui/material";
 import BuildIcon from "@mui/icons-material/Build";
 import Stack from "@mui/material/Stack";
@@ -15,8 +12,6 @@ import UpdateForm from "../dialogs/UpdateForm";
 import DeleteDialog from "../dialogs/DeleteDialog";
 
 function ShopControl({ shop }) {
-  const dispatch = useDispatch();
-
   return (
     <Card sx={{ height: "100%" }} {...shop}>
       <CardContent>
@@ -26,9 +21,9 @@ function ShopControl({ shop }) {
               Shop Controls
             </Typography>
             <Typography variant="h4">
-              <Stack spacing={5} direction="row">
-                <UpdateForm key={shop._id} shop={shop} />
-                <DeleteDialog key={shop._id} shop={shop} />
+              <Stack spacing={3} direction="row">
+                <UpdateForm shop={shop} />
+                <DeleteDialog shop={shop} />
               </Stack>
             </Typography>
           </Grid>

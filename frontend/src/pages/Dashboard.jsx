@@ -7,9 +7,7 @@ import { getShops, reset } from "../features/shops/shopSlice";
 import Sidebar from "../components/Sidebar";
 
 // Material UI
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import { DashboardRoot } from "../components/DashboardRoot";
@@ -61,8 +59,8 @@ function Dashboard() {
               py: 8,
             }}
           >
-            <Container maxWidth>
-              <DashboardCard key={user._id} user={user} />
+            <Container maxWidth="true">
+              <DashboardCard />
             </Container>
             {shops.length > 0 ? (
               <div>
@@ -82,7 +80,7 @@ function Dashboard() {
           </Box>
         </Box>
       </DashboardRoot>
-      <Sidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
+      {/* <Sidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} /> */}
     </>
   );
 }

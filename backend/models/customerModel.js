@@ -14,10 +14,6 @@ const customerSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  time: {
-    type: String,
-    require: true,
-  },
   date: {
     type: Date,
     require: true,

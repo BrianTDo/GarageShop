@@ -30,7 +30,7 @@ function Header() {
 
   return (
     <>
-      <AppBar position="sticky" color="transparent" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar position="sticky" color="info" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar
           sx={{
             justifyContent: 'space-between',
@@ -39,6 +39,8 @@ function Header() {
           
         >
           <IconButton
+            component={Link}
+            to="/"
             size="large"
             edge="start"
             color="primary"

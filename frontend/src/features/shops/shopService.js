@@ -13,6 +13,12 @@ const getShops = async (token) => {
   return response.data;
 };
 
+// Get Shop by id
+const getShopById = async (id) => {
+  const response = await axios.get(API_URL + id);
+  return response.data;
+};
+
 // Create Shop
 const createShop = async (shopData, token) => {
   const config = {
@@ -25,13 +31,13 @@ const createShop = async (shopData, token) => {
 };
 
 // Update Shop
-const updateShop = async (shopId, shopData, token) => {
+const updateShop = async (shopData, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.put(API_URL + shopId, shopData, config);
+  const response = await axios.put(API_URL + shopData.id, shopData, config);
   return response.data;
 };
 
@@ -51,5 +57,6 @@ const shopService = {
   createShop,
   updateShop,
   deleteShop,
+  getShopById,
 };
 export default shopService;

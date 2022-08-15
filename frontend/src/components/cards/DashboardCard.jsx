@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -6,9 +8,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 
-function DashboardCard({ user }) {
+function DashboardCard() {
+  const { user } = useSelector((state) => state.auth);
+
   return (
-    <Card sx={{ height: "100%" }} {...user}>
+    <Card sx={{ height: "100%" }}>
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
@@ -38,7 +42,7 @@ function DashboardCard({ user }) {
             alignItems: "center",
           }}
         >
-          <Typography color="textSecondary" sx={{ mr: 1, }} variant="body2">
+          <Typography color="textSecondary" sx={{ mr: 1 }} variant="body2">
             Your shop information is presented on the Dashboard
           </Typography>
         </Box>

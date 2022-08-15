@@ -10,7 +10,7 @@ import WarehouseIcon from "@mui/icons-material/Warehouse";
 
 function ShopInfo({ shop }) {
   return (
-    <Card sx={{ height: "100%" }} {...shop}>
+    <Card sx={{ height: "100%" }}>
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>

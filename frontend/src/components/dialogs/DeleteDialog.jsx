@@ -38,7 +38,7 @@ function DeleteDialog({ shop }) {
         <DialogTitle>Delete</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please complete all fields to get started on your shop!
+            All data will be lost! Are you sure?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

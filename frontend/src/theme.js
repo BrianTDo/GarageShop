@@ -1,4 +1,6 @@
 import { createTheme } from "@mui/material";
+import { alpha } from "@mui/material";
+import { lightBlue } from "@mui/material/colors";
 
 export const theme = createTheme({
     palette:{
@@ -24,6 +26,9 @@ export const theme = createTheme({
         },
         background:{
             default: "#e8eaf6"
+        },
+        info:{
+            main: alpha("#e8eaf6", 0.8)
         }
     },
     spacing: 8,

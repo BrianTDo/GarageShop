@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import {
+  generatePath,
+  useNavigate,
+} from "react-router-dom";
 import { createShop } from "../features/shops/shopSlice";
 import states from "./States";
 
@@ -27,9 +31,11 @@ function ShopForm() {
     zip: "",
     phone: "",
     active: false,
+    description: "",
   });
 
-  const { name, address, city, state, zip, phone, active } = FormData;
+  const { name, address, city, state, zip, phone, active, description } =
+    FormData;
 
   const dispatch = useDispatch();
 
@@ -58,10 +64,22 @@ function ShopForm() {
       zip,
       phone,
       active,
+      description,
     };
 
     dispatch(createShop(shopData));
+    setFormData('')
   };
+
+  // Generate Shop Path
+  const [id, setId] = useState();
+  const navigate = useNavigate();
+
+  const handleProceed = (e) => {
+    setOpen(false)
+    id && navigate(generatePath("/products/:id", { id }));
+  };
+
 
   // Material UI
   const [open, setOpen] = useState(false);
@@ -70,7 +88,7 @@ function ShopForm() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleOpen} size='large'>
+      <Button variant="outlined" onClick={handleOpen} size="large">
         Create Shop
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -134,10 +152,10 @@ function ShopForm() {
                   onChange={onChange}
                 >
                   {states.map((state) => (
-                <MenuItem key={state} value={state} >
-                  {state}
-                </MenuItem>
-              ))}
+                    <MenuItem key={state} value={state}>
+                      {state}
+                    </MenuItem>
+                  ))}
                 </TextField>
               </Grid>
               <Grid item xs={6}>
@@ -182,11 +200,26 @@ function ShopForm() {
                   labelPlacement="top"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  multiline
+                  rows={4}
+                  fullWidth
+                  margin="dense"
+                  type="text"
+                  label="Description"
+                  id="description"
+                  name="description"
+                  value={description}
+                  placeholder="Enter Shop Description"
+                  onChange={onChange}
+                />
+              </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose} type="submit">
+            <Button onClick={handleProceed} type="submit">
               Create
             </Button>
           </DialogActions>
