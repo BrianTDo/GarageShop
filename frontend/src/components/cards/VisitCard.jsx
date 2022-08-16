@@ -12,7 +12,6 @@ import {
 import WebIcon from "@mui/icons-material/Web";
 
 function VisitCard({ shop }) {
-
   return (
     <Card sx={{ height: "100%" }} {...shop}>
       <CardContent>

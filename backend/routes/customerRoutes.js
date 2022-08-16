@@ -7,7 +7,7 @@ const {
 } = require("../controllers/customerController");
 const { protect } = require("../middleware/authMiddleware");
 
-router.route("/").get( getCustomers).post(setCustomer);
-router.route("/:id").delete( deleteCustomer)
+router.route("/").post(setCustomer);
+router.route("/:id").delete(protect, deleteCustomer).get(protect, getCustomers)
 
 module.exports = router;

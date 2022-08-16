@@ -14,8 +14,8 @@ export const getCustomers = createAsyncThunk(
   "customer/getAll",
   async (shopId, thunkAPI) => {
     try {
-      //const token = thunkAPI.getState().auth.user.token;
-      return await customerService.getCustomers(shopId);
+      const token = thunkAPI.getState().auth.user.token;
+      return await customerService.getCustomers(shopId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -33,8 +33,7 @@ export const createCustomer = createAsyncThunk(
   "customer/create",
   async (customerData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await customerService.createCustomer(customerData, token);
+      return await customerService.createCustomer(customerData);
     } catch (error) {
       const message =
         (error.response &&

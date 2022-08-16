@@ -13,7 +13,7 @@ const getCustomers = asyncHandler(async (req, res) => {
 });
 
 // @desc Set customer
-// @route POST /api/customer
+// @route POST /api/customer/
 // @access Public
 const setCustomer = asyncHandler(async (req, res) => {
   if (!req.body.shop) {

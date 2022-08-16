@@ -9,13 +9,12 @@ const Customer = require("../models/customerModel");
 // @access Private
 const getShops = asyncHandler(async (req, res) => {
   const shops = await Shop.find({ user: req.user.id });
-
   res.status(200).json(shops);
 });
 
 // @desc Get shop by id
 // @route GET /api/shops/:id
-// @access Private
+// @access Public
 const getShopById = asyncHandler(async (req, res) => {
   const shop = await Shop.findById(req.params.id);
 
