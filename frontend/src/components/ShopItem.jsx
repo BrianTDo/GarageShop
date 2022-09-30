@@ -5,6 +5,7 @@ import ActiveCard from "./cards/ActiveCard";
 import ShopControl from "./cards/ShopControl";
 import VisitCard from "./cards/VisitCard";
 import Appointments from "./cards/Appointments";
+import DateRestrict from "./cards/DateRestrict";
 
 function ShopItem({ shop }) {
   return (
@@ -26,7 +27,7 @@ function ShopItem({ shop }) {
           <Appointments shop={shop} sx={{ height: "100%" }}/>
         </Grid>
         <Grid item lg={4} md={6} xl={3} xs={12}>
-          <ShopInfo shop={shop} sx={{ height: "100%" }} />
+          <DateRestrict shop={shop} sx={{ height: "100%" }} />
         </Grid>
       </Grid>
     </Container>

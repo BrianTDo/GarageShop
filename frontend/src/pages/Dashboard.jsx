@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ShopItem from "../components/ShopItem";
 import Spinner from "../components/Spinner";
 import { getShops, reset } from "../features/shops/shopSlice";
-import Sidebar from "../components/Sidebar";
+//import Sidebar from "../components/Sidebar";
 
 // Material UI
 import Box from "@mui/material/Box";
@@ -28,6 +28,7 @@ function Dashboard() {
     if (isError) {
       console.log(message);
     }
+
     if (!user) {
       navigate("/login");
     }
@@ -37,7 +38,7 @@ function Dashboard() {
     return () => dispatch(reset);
   }, [user, navigate, isError, message, dispatch]);
 
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  //const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   if (isLoading) {
     return <Spinner />;

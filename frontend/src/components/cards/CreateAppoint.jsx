@@ -19,6 +19,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { toast } from "react-toastify";
 
+
 function CreateAppoint({ shop }) {
 
 
@@ -26,7 +27,7 @@ function CreateAppoint({ shop }) {
   const [FormData, setFormData] = useState({
     name: "",
     phone: "",
-    date: new Date(),
+    date: null,
     shop: shop._id,
   });
 
@@ -41,10 +42,10 @@ function CreateAppoint({ shop }) {
     }));
   };
 
-  const onDate = (date) => {
+  const onDate = (newDate) => {
     setFormData((prevState) => ({
       ...prevState,
-      [date]: date,
+      date: newDate
     }));
   };
 
@@ -60,7 +61,7 @@ function CreateAppoint({ shop }) {
 
     dispatch(createCustomer(customerData));
     toast("Submitted!");
-    setFormData({ name: "", phone: "", date: new Date(), shop: shop._id });
+    setFormData({ name: "", phone: "", date: null });
   };
 
   return (
@@ -149,9 +150,9 @@ function CreateAppoint({ shop }) {
                   onChange={onDate}
                   label="Select Date and Time"
                   onError={console.log}
-                  minDate={new Date()}
                   mask="___/__/__ __:__ _M"
-                  renderInput={(params) => <TextField {...params} />}
+                  disablePast
+                  renderInput={(props) => <TextField {...props} />}
                 />
               </LocalizationProvider>
             </Grid>

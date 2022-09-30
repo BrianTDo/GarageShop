@@ -39,6 +39,7 @@ const shopSchema = mongoose.Schema(
       type: String,
       require: false,
     },
+    customers: [{type: Date}],
     customers: [{type: mongoose.Schema.Types.ObjectId, ref:"Customer"}],
   },
   {

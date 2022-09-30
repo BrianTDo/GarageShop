@@ -18,7 +18,7 @@ const customerRouter = require("./routes/customerRoutes");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//Routes
+// Routes
 app.use("/", indexRouter);
 app.use("/api/shops", shopRouter);
 app.use("/api/users", loginRouter);

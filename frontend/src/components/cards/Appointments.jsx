@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Card, CardHeader } from "@mui/material";
+import { Box, Card, CardHeader } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import {
@@ -9,11 +9,12 @@ import {
   reset,
 } from "../../features/customers/customerSlice";
 
+
 function Appointments({ shop }) {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
-  const { customers, isError, message } = useSelector(
+  const { customers, isLoading, isError, message } = useSelector(
     (state) => state.customers
   );
 
@@ -22,8 +23,8 @@ function Appointments({ shop }) {
       console.log(message);
     }
 
-    dispatch(getCustomers(shop._id));
-
+    dispatch(getCustomers(shop._id))
+    
     return () => dispatch(reset);
   }, [shop, user, isError, message, dispatch]);
 
@@ -36,7 +37,6 @@ function Appointments({ shop }) {
     };
   });
 
-  console.log(customerRows);
   const [rows, setRows] = useState(customerRows);
 
   const handleDeleteClick = (id) => () => {
@@ -71,7 +71,7 @@ function Appointments({ shop }) {
     <Card>
       <CardHeader title="Latest Appointments" />
       <Box sx={{ minWidth: 400 }}>
-        <div style={{ height: 400, width: "100%" }}>
+          <div style={{ height: 400, width: "100%" }}>
           <DataGrid
             rows={rows}
             columns={columns}
